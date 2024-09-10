@@ -7,9 +7,20 @@ import java.util.Objects;
 
 public class MainScreenGUI extends JFrame{
 
+
+    /* TODO
+    *   add result operation
+    *   finish current operation before starting the next one, currently: we entered two numbers for example 10 and 5 and current operation is add, but next operation we want to do is subtraction, so we click - button the result should be
+    *       15 in enteredHistory JTextField and operation set to -, but now we get the result 5 (calculator doesn't check which sign was entered before and starts new operation immediately
+    *   add the rest of methods: divide, change sign etc.
+    * */
     public MainScreenGUI() {
 
-        setSize(240, 300);
+
+        Dimension minWindowSize = new Dimension(340,500);
+        setMinimumSize(minWindowSize);
+        setSize(280, 380);
+
         setLocation(960,0);
         setTitle("Calculator");
 
@@ -132,15 +143,19 @@ public class MainScreenGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String temp;
                 temp = entered.getText();
-                if(Objects.equals(enteredHistory.getText(), "")){
+                if(Objects.equals((temp), "")){
+                    operation.setText("+");
+                } else if(Objects.equals(enteredHistory.getText(), "")){
                     enteredHistory.setText(temp);
+                    operation.setText("+");
+                    entered.setText(null);
                 } else {
                     double result = SimpleCalculusOperations.add(Double.parseDouble(temp), Double.parseDouble(enteredHistory.getText()));
                     enteredHistory.setText(result + "");
+                    operation.setText("+");
+                    entered.setText(null);
                 }
 
-                operation.setText("+");
-                entered.setText("");
             }
         });
 
@@ -148,9 +163,39 @@ public class MainScreenGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String temp;
                 temp = entered.getText();
-                enteredHistory.setText(temp);
-                operation.setText("-");
-                entered.setText("");
+                if(Objects.equals((temp), "")){
+                    operation.setText("-");
+                } else if(Objects.equals(enteredHistory.getText(), "")){
+                    enteredHistory.setText(temp);
+                    operation.setText("-");
+                    entered.setText(null);
+                } else {
+                    double result = SimpleCalculusOperations.substract(Double.parseDouble(enteredHistory.getText()), Double.parseDouble(temp));
+                    enteredHistory.setText(result + "");
+                    operation.setText("-");
+                    entered.setText(null);
+                }
+
+            }
+        });
+
+        multiplyButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String temp;
+                temp = entered.getText();
+                if(Objects.equals((temp), "")){
+                    operation.setText("x");
+                } else if(Objects.equals(enteredHistory.getText(), "")){
+                    enteredHistory.setText(temp);
+                    operation.setText("x");
+                    entered.setText(null);
+                } else {
+                    double result = SimpleCalculusOperations.multiplicate(Double.parseDouble(enteredHistory.getText()), Double.parseDouble(temp));
+                    enteredHistory.setText(result + "");
+                    operation.setText("x");
+                    entered.setText(null);
+                }
+
             }
         });
 

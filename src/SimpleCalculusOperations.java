@@ -1,13 +1,16 @@
 public class SimpleCalculusOperations {
 
 
-    public void divide() {
-
-
+    public static double divide(double a, double b) {
+        double calculation;
+        calculation = a / b;
+        return calculation;
     }
 
-    public void multiplicate() {
-
+    public static double multiplicate(double a, double b) {
+        double calculation;
+        calculation = a * b;
+        return calculation;
 
     }
 
@@ -17,9 +20,10 @@ public class SimpleCalculusOperations {
         return calculation;
     }
 
-    public static void substract() {
-
-
+    public static double substract(double a, double b) {
+        double calculation;
+        calculation = a - b;
+        return calculation;
     }
 
     public void squareRoot() {
