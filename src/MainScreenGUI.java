@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
 import java.util.Objects;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.application.Platform;
 
 public class MainScreenGUI extends JFrame{
 
@@ -193,6 +196,38 @@ public class MainScreenGUI extends JFrame{
                     double result = SimpleCalculusOperations.multiplicate(Double.parseDouble(enteredHistory.getText()), Double.parseDouble(temp));
                     enteredHistory.setText(result + "");
                     operation.setText("x");
+                    entered.setText(null);
+                }
+
+            }
+        });
+
+        equalsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String temp, temp2;
+                temp = entered.getText();
+                temp2 = enteredHistory.getText();
+                if(Objects.equals(temp, "") && Objects.equals(temp2, "")){
+                    PopUp.createPopUpp("All inputs are empty. Nothing to do");
+                } else if(Objects.equals(temp, "" ) || Objects.equals(temp2, "")){
+                    if(temp.compareTo(temp2) < 0){
+                        enteredHistory.setText(temp2);
+                        operation.setText(null);
+                        entered.setText(null);
+                    } else if (temp.compareTo(temp2) > 0){
+                        enteredHistory.setText(temp);
+                        operation.setText(null);
+                        entered.setText(null);
+                    }
+                }
+                 else {
+                    double result = 0;
+                     switch (operation.getText()){
+                         case "+": result = SimpleCalculusOperations.add(Double.parseDouble(temp), Double.parseDouble(temp2));
+                        //ADD rest of the operations *, -, /, etc.
+                     }
+                    enteredHistory.setText(result + "");
+                    operation.setText(null  );
                     entered.setText(null);
                 }
 
